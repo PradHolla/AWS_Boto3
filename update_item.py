@@ -8,11 +8,8 @@ def update_device(device_id, datacount, info_timestamp, temperature1, temperatur
     # Specify the table
     devices_table = dynamodb.Table('Devices')
 
-    response = devices_table.update_item(
-        Key={
-            'device_id': device_id,
-            'datacount': datacount
-        },
+    return devices_table.update_item(
+        Key={'device_id': device_id, 'datacount': datacount},
         UpdateExpression="set info.info_timestamp=:time, info.temperature1=:t1, info.temperature2=:t2, info.temperature3=:t3, info.temperature4=:t4, info.temperature5=:t5",
         ExpressionAttributeValues={
             ':time': info_timestamp,
@@ -20,11 +17,10 @@ def update_device(device_id, datacount, info_timestamp, temperature1, temperatur
             ':t2': temperature2,
             ':t3': temperature3,
             ':t4': temperature4,
-            ':t5': temperature5
+            ':t5': temperature5,
         },
-        ReturnValues="UPDATED_NEW"
+        ReturnValues="UPDATED_NEW",
     )
-    return response
 
 
 if __name__ == '__main__':

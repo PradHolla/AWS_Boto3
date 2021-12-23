@@ -7,7 +7,7 @@ def put_device(device_id, datacount, timestamp, temperature1, temperature2, temp
         'dynamodb', endpoint_url="http://localhost:8000")
     # Specify the table
     devices_table = dynamodb.Table('Devices')
-    response = devices_table.put_item(
+    return devices_table.put_item(
         # Data to be inserted
         Item={
             'device_id': device_id,
@@ -22,7 +22,6 @@ def put_device(device_id, datacount, timestamp, temperature1, temperature2, temp
             }
         }
     )
-    return response
 
 
 if __name__ == '__main__':
