@@ -1,2 +1,2 @@
 # DynamoDB
-Basic AWS DynamoDB Python operations.
+Basic AWS Boto3 operations.
