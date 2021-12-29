@@ -2,7 +2,7 @@ import logging
 import boto3
 from botocore.exceptions import ClientError
 import os
-def upload_file(file_name, bucket, object_name=None):
+def upload_file(file_name, bucket, object_name=None, args=None):
     """Upload a file to an S3 bucket
 
     :param file_name: File to upload
@@ -18,10 +18,11 @@ def upload_file(file_name, bucket, object_name=None):
     # Upload the file
     s3_client = boto3.client('s3')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
+        response = s3_client.upload_file(file_name, bucket, object_name, ExtraArgs=args)
     except ClientError as e:
         logging.error(e)
         return False
     return True
 
-upload_file('S3/files/test.txt', 'pradtest')
+args = {'ACL': 'public-read', 'ContentType': 'text/html'}
+upload_file('S3/files/index.html', 'pradtest', object_name='index.html', args=args)
